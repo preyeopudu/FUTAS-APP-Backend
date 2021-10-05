@@ -1,0 +1,1 @@
+npm i bcryptjs compression cors dotenv express express-mongo-sanitize express-rate-limit helmet joi jsonwebtoken mongoose morgan xss-clean prettier
