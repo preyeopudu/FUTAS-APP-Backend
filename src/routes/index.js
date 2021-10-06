@@ -1,12 +1,8 @@
-const router = require('express').Router();
+const express = require('express');
+const userRouter = require('./userRouter');
 
-const testRoute = require('./testRoute');
+const router = express.Router();
 
-/*
-  This file serve as our entries file for all the routes we might have,
-
-*/
-
-router.use('/api/v1/tests', testRoute);
+router.use(userRouter);
 
 module.exports = router;

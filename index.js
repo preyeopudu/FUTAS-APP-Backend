@@ -11,15 +11,12 @@ dotenv.config();
 
 // Imports
 const route = require('./src/routes');
-const db = require('./src/db');
+const { connectDatabase } = require('./src/db');
 const CustomError = require('./src/utils/CustomError');
 const expressGlobalErrorHandlingMiddleware = require('./src/middlewares/expressErrorHandling');
 
 // Express app
 const app = express();
-
-// Connect to db
-// db();
 
 // Express Configuration
 app.enable('trust proxy');
@@ -45,7 +42,7 @@ app.use(mongoSanitize());
 app.use(xss());
 
 // Mounting routes
-app.use(route);
+app.use('/api', route);
 
 // 404 Not found error
 app.all('*', (req, res, next) => {
@@ -56,7 +53,12 @@ app.all('*', (req, res, next) => {
 // Express global error handling middleware
 app.use(expressGlobalErrorHandlingMiddleware);
 
-const port = process.env.PORT || 5000;
-app.listen(port, () => {
-  console.log(`Now Listening to port ${port}`);
-});
+const startServer = () => {
+  const port = process.env.PORT || 5000;
+  app.listen(port, () => {
+    console.log(`Now Listening to port ${port}`);
+  });
+};
+
+// To make sure our database connects before we start our server
+connectDatabase(startServer);
