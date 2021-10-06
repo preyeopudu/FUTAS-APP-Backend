@@ -49,7 +49,7 @@ class Database {
 }
 
 const dbURI = getDatabaseUri();
-const db = new Database(dbURI);
+const db = new Database();
 
 module.exports = {
   connectDatabase: db.connect.bind(null, dbURI),
