@@ -1,10 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
+const CustomError = require('../utils/CustomError');
 
 const getDatabaseUri = () => {
   const nodeEnv = process.env.NODE_ENV;
-  const [prod, dev] = [process.env.DB_PROD, process.env.DB_LOCAL];
+  const [prod, dev] = [process.env.DB_LOCAL, process.env.DB_LOCAL];
   switch (nodeEnv) {
     case 'production':
     case 'prod':
@@ -13,7 +14,7 @@ const getDatabaseUri = () => {
     case 'development':
       return dev;
     default:
-      throw new Error('Node Env not set');
+      throw new CustomError('Node Env not set');
   }
 };
 

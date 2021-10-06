@@ -45,6 +45,6 @@ module.exports = (err, req, res, next) => {
     sendErrorInDev(err, res);
   }
   if (process.env.NODE_ENV === 'production') {
-    sendErrorInProd(error, res);
+    sendErrorInProd(err, res);
   }
 };
