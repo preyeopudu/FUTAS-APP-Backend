@@ -30,10 +30,9 @@ const librarySchema = new Schema({
     },
 
     {
-        versionKey: false
+        versionKey: false,
         timestamps: true,
-    },
-    {
+    }, {
         librarySchema.index({
             name: "text",
             fileType: "text",

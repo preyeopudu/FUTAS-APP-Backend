@@ -2,6 +2,10 @@ const express = require('express');
 const db = require('./models/libraryModel');
 const app = express();
 
+const newUrlSchema = yup.object().shape({
+    course: yup.string().matches(/^[\w\-]+$/i),
+    level: yup.string().required()
+});
 exports.getBooks = async(req, res) => {
 
     try {
@@ -15,7 +19,9 @@ exports.getBooks = async(req, res) => {
 exports.getBook = async(req, res) => {
     try {
         const book = await db.findOne({ 'course': course, 'level': level });
-        res.render('/books', { 'title': course, 'level': level })
+        res.render('/books', { 'title': course, 'level': level });
+    } catch (err) {
+        return res.status(500).json(err);
     }
 }
 
