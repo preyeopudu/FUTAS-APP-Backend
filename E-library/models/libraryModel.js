@@ -32,16 +32,7 @@ const librarySchema = new Schema({
     {
         versionKey: false,
         timestamps: true,
-    }, {
-        librarySchema.index({
-            name: "text",
-            fileType: "text",
-            description: "text",
-            course: "text",
-            fileUrl: "text"
-        })
     }
-
 );
 // creating the model
 const Book = mongoose.model('library', blogSchema);
