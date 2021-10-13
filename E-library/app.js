@@ -66,7 +66,3 @@ exports.deleteBook = async(req,res) => {
         console.log(err)
     }
 };
-app.delete('/E-library/:id', (req, res) => {
-    const { id } = req.params.id;
-    res.send(`Delete record with id id`);
-});

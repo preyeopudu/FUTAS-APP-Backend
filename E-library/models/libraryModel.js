@@ -35,6 +35,6 @@ const librarySchema = new Schema({
     }
 );
 // creating the model
-const Book = mongoose.model('library', blogSchema);
+const Book = mongoose.model('library', librarySchema);
 // to export the blog model
 module.export = Book;
