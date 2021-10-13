@@ -1,6 +1,11 @@
 const db = require('./models/libraryModel');
 const Joi = require('joi');
 
+const newBookSchema = Joi.object().keys({
+    course: Joi.string().required(),
+    level: Joi.number().required()
+});
+
 // Getting the books from the database
 exports.getBooks = async(req, res) => {
 
@@ -13,21 +18,27 @@ exports.getBooks = async(req, res) => {
 };
 
 // get a book from the database
-exports.findBook = async(req,res) => {
+exports.findBook = async(req, res) => {
     const value = req.body.searchName;
     const searchObj = {};
     searchObj[filter] = value;
+    await newBookSchema.validate(searchObj);
 
     try {
         // Fetch the book from the database
         const find = await db.find(searchObj);
         res.render('E-library', {
-            'title': course, 'level': level
+            'title': course,
+            'level': level
         });
-    } if(!find) {
-        throw new Error('Book not found');
+        if (!find) {
+            throw new Error('Book not found');
+        }
+    } catch (err) {
+        console.log(err);
     }
-}
+};
+
 
 
 exports.getBookById = async(req, res) => {
@@ -40,10 +51,6 @@ exports.getBookById = async(req, res) => {
     }
 }
 
-const newBookSchema = Joi.object().keys({
-    course: Joi.string().required(),
-    level: Joi.number().required()
-});
 // book upload
 exports.postBook = async(req, res) => {
     const book = new Book(req.body)
