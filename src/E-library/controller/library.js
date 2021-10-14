@@ -11,7 +11,7 @@ exports.getBooks = async(req, res) => {
 
     try {
         const books = await db.find();
-        res.json('/E-library', { 'title': course, 'level': level });
+        res.json({ 'title': course, 'level': level });
     } catch (err) {
         return res.status(500).json(err);
     }
@@ -64,12 +64,12 @@ exports.postBook = async(req, res) => {
         });
 };
 
-exports.deleteBook = async(req, res) => {
+exports.deleteBook = async(req,res) => {
     const book_id = req.params.book_id;
     try {
         const book = await db.findByIdAndRemove(book_id);
         res.redirect('E-library')
-    } catch (err) {
+    } catch(err) {
         console.log(err)
     }
 };
